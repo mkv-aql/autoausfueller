@@ -5,7 +5,22 @@ import numpy as np
 import pyautogui
 import time
 
-directory = 'D:\\Users\\AGAM MUHAJIR\\Documents\\Projects\\autoausfueller'
+from pyarrow import dictionary
+
+sleep_time_next = 0.05
+
+directory = 'C:\\Users\\AgamSafaruddinDeutsc\\Documents\\Projekt\\autoausfueller'
+
+dict = {
+    'strasse' : 'Erfurter Strasse',
+    'hausnummer' : '1157',
+    'plz' : '59192',
+    'ort' : 'Bergkamen',
+    'ortsteil1' : 'Weddinghofen',
+    'ortsteil2' : 'Weddinghofen',
+    'we_privat' : '1'
+}
+
 
 def match_and_click(template_path, confidence=0.8):
     """
@@ -50,6 +65,23 @@ def match_and_click(template_path, confidence=0.8):
     else:
         print(f"No match found with confidence >= {confidence}")
 
+def autofill_entry(key, data, delay=sleep_time_next):
+    """
+    Autofills an entry field with the given data.
+
+    Args:
+        key (str): Key to identify the entry field.
+        data (str): Data to be filled in the entry field.
+        delay (float): Delay between key presses.
+    """
+
+    if key in dict:
+        value = data[key]
+        time.sleep(delay)
+        pyautogui.typewrite(value)
+        print(f"Filled {key} with {value}")
+    else:
+        print(f"Key {key} not found in the data dictionary.")
 
 # Example usage
 if __name__ == "__main__":
@@ -62,11 +94,53 @@ if __name__ == "__main__":
     # Call the function
     match_and_click(add_image)
 
-    time.sleep(0.2)
+    time.sleep(sleep_time_next)
 
-    new_address_image = f'{directory}\\addresse_neu.JPG'  # Replace with your snippet image path
-
+    next = f'{directory}\\addresse_neu.JPG'  # Replace with your snippet image path
     # Call the function
-    match_and_click(new_address_image)
+    match_and_click(next)
+    # fill in entry
 
-    time.sleep(0.2)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_strasse.JPG'  # Replace with your snippet image path
+    # Call the function
+    match_and_click(next)
+    autofill_entry('strasse', dict)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_hausnummer.JPG'  # Replace with your snippet image path
+    # Call the function
+    match_and_click(next)
+    autofill_entry('hausnummer', dict)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_plz.JPG'  # Replace with your snippet image path
+    # Call the function
+    match_and_click(next)
+    autofill_entry('plz', dict)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_ort.JPG'  # Replace with your snippet image path
+    # Call the function
+    match_and_click(next)
+    autofill_entry('ort', dict)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_ortsteil1.JPG'  # Replace with your snippet image path
+    # Call the function
+    match_and_click(next)
+    autofill_entry('ortsteil1', dict)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_ortsteil2.JPG'  # Replace with your snippet image path
+    # Call the function
+    match_and_click(next)
+    autofill_entry('ortsteil2', dict)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_we_privat.JPG'  # Replace with your snippet image path
+    # Call the function
+    match_and_click(next)
+    autofill_entry('we_privat', dict)
+    time.sleep(sleep_time_next)
