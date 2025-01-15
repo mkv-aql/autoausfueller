@@ -5,8 +5,6 @@ import numpy as np
 import pyautogui
 import time
 
-from pyarrow import dictionary
-
 sleep_time_next = 0.05
 
 directory = 'C:\\Users\\AgamSafaruddinDeutsc\\Documents\\Projekt\\autoausfueller'
