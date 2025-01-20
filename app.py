@@ -25,6 +25,7 @@ def window(root):
         ("Ortsteil 1", "Eselswiese"),
         ("Ortsteil 2", "Eselswiese"),
         ("Wohneinheiten (Privat)", "1"),
+        # ("Baulücke", "0")
     ]
 
     entries = []
@@ -52,7 +53,17 @@ def window(root):
         except ValueError:
             current_number = 0
         entries[1].delete(0, tk.END)
-        entries[1].insert(0, str(current_number + 2))
+        entries[1].insert(0, str(current_number + 1))
+        refresh()
+
+    def prev():
+        """Increments the Hausnummer (second entry) by 2."""
+        try:
+            current_number = int(entries[1].get())
+        except ValueError:
+            current_number = 0
+        entries[1].delete(0, tk.END)
+        entries[1].insert(0, str(current_number - 1))
         refresh()
 
     def insert_data():
@@ -60,9 +71,32 @@ def window(root):
         refresh()
         insert(fetch.copy())
 
+    def bauluecke_check():
+        if tick.get() == 1:
+            print("Baulücke")
+            fetch.append("1")
+        else:
+            print("Keine Baulücke")
+            fetch.append("0")
+
+    # tick box
+    tick = tk.Checkbutton(root, text="Baulücke", onvalue=1, offvalue=0, command=bauluecke_check).pack()
+
+
     # Buttons
-    button = tk.Button(root, text="+2 Haus Nr.", command=next)
-    button.pack()
+    button0 = tk.Button(root, text="+1 Haus Nr.", command=next)
+    # button0.pack()
+    button0.pack(side=tk.LEFT)
+
+    button1 = tk.Button(root, text="-1 Haus Nr.", command=prev)
+    # button1.pack()
+    button1.pack(side=tk.LEFT)
+
+    # button0.grid(column=0, row=0)  # grid dynamically divides the space in a grid
+    # button1.grid(column=1, row=0)  # and arranges widgets accordingly
+
+    # button0.pack(side=tk.LEFT)  # pack starts packing widgets on the left
+    # button1.pack(side=tk.LEFT)  # and keeps packing them to the next place available on the left
 
     button2 = tk.Button(root, text="Update", command=refresh)
     button2.pack()
@@ -96,7 +130,8 @@ def insert(fetch):
         "ort": fetch[3],
         "ortsteil1": fetch[4],
         "ortsteil2": fetch[5],
-        "we_privat": fetch[6]
+        "we_privat": fetch[6],
+        "bauluecke": fetch[7],
     }
 
     aa.run()
@@ -122,7 +157,7 @@ def insert(fetch):
 # Tkinter window
 root = tk.Tk()
 root.title("Hello World")
-root.geometry("300x400")
+root.geometry("300x500")
 # Keep window above everything
 root.attributes("-topmost", True)
 window(root)

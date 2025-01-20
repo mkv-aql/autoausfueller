@@ -5,7 +5,7 @@ import numpy as np
 import pyautogui
 import time
 
-sleep_time_next = 0.05
+sleep_time_next = 0.02
 
 directory = 'C:\\Users\\AgamSafaruddinDeutsc\\Documents\\Projekt\\autoausfueller'
 
@@ -16,7 +16,8 @@ dict = {
     'ort' : 'Bergkamen',
     'ortsteil1' : 'Weddinghofen',
     'ortsteil2' : 'Weddinghofen',
-    'we_privat' : '1'
+    'we_privat' : '1',
+    'bauluecke' : '0',
 }
 
 def update_dict(key, value):
@@ -153,3 +154,20 @@ if __name__ == "__main__":
     match_and_click(next)
     autofill_entry('we_privat', dict)
     time.sleep(sleep_time_next)
+
+    # Move mouse a bit to the left from where it was
+    pyautogui.move(-100, 0)
+    time.sleep(sleep_time_next)
+    pyautogui.click()
+    time.sleep(sleep_time_next)
+    # Scroll mouse down
+    pyautogui.scroll(-5000)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_bauluecke.JPG'  # Replace with your snippet image path
+    # Call the function
+    match_and_click(next)
+    autofill_entry('bauluecke', dict)
+    time.sleep(sleep_time_next)
+
+
