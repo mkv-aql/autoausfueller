@@ -14,6 +14,7 @@ import threading
 
 fetch = []
 
+
 # Inside window function
 def window(root):
     # Create and organize the labels and entries
@@ -69,7 +70,7 @@ def window(root):
     def insert_data():
         """Calls the insert function with the latest fetch data."""
         refresh()
-        insert(fetch.copy())
+        insert(fetch, tick_var.get())
 
     def bauluecke_check():
         if tick.get() == 1:
@@ -80,7 +81,9 @@ def window(root):
             fetch.append("0")
 
     # tick box
-    tick = tk.Checkbutton(root, text="Baulücke", onvalue=1, offvalue=0, command=bauluecke_check).pack()
+    # checkbox_var = tk.IntVar()  # 0 = unchecked, 1 = checked
+    tick_var = tk.IntVar()  # 0 = unchecked, 1 = checked
+    tick = tk.Checkbutton(root, text="Baulücke", variable=tick_var).pack()
 
 
     # Buttons
@@ -105,8 +108,7 @@ def window(root):
     button3.pack()
 
 
-def insert(fetch):
-
+def insert(fetch, tick_var):
     print(f'\nFetched data:\n{fetch}\n')
     # Open images
     # step1 = cv2.imread('weiter.JPG', cv2.IMREAD_UNCHANGED)
@@ -123,6 +125,15 @@ def insert(fetch):
     # entry = tk.Entry(root)
     # entry.pack()
 
+    # if the tick box is ticked, print ticked
+
+    if tick_var == 1:
+        aa.bauluecke_status = 1
+        print("Checkbox is ticked!")
+    else:
+        aa.bauluecke_status = 0
+        print("Checkbox is not ticked.")
+
     aa.dict = {
         "strasse": fetch[0],
         "hausnummer": fetch[1],
@@ -131,7 +142,7 @@ def insert(fetch):
         "ortsteil1": fetch[4],
         "ortsteil2": fetch[5],
         "we_privat": fetch[6],
-        "bauluecke": fetch[7],
+        # "bauluecke": fetch[7],
     }
 
     aa.run()
@@ -156,8 +167,9 @@ def insert(fetch):
 
 # Tkinter window
 root = tk.Tk()
-root.title("Hello World")
-root.geometry("300x500")
+root.title("Automatisches Ausfüllen")
+root.geometry("400x500") # Window size
+root.geometry("+1300+250") # Window position
 # Keep window above everything
 root.attributes("-topmost", True)
 window(root)

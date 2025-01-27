@@ -5,13 +5,15 @@ import numpy as np
 import pyautogui
 import time
 
-sleep_time_next = 0.05
+sleep_time_next = 0.02
 
 # directory = 'C:\\Users\\AgamSafaruddinDeutsc\\Documents\\Projekt\\autoausfueller'
 
 directory = 'image_ref'
 
 special_characters = ['ä','ö','ü','ß', 'Ä', 'Ö', 'Ü']
+
+bauluecke_status = 0
 
 dict = {}
 
@@ -27,7 +29,7 @@ def update_dict(key, value):
 
 
 
-def match_and_click(template_path, confidence=0.8):
+def match_and_click(template_path, confidence=0.8, adjust = 0):
     """
     Matches a template image within the current screen and moves the mouse to click it.
 
@@ -55,6 +57,11 @@ def match_and_click(template_path, confidence=0.8):
     result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
+    if adjust == 1:
+        shift = 5
+    else:
+        shift = 0
+
     # Check if match is above confidence threshold
     if max_val >= confidence:
         # Get the coordinates of the match
@@ -64,7 +71,7 @@ def match_and_click(template_path, confidence=0.8):
         center_y = top_left[1] + h // 2
 
         # Simulate mouse movement and click
-        pyautogui.moveTo(center_x, center_y)
+        pyautogui.moveTo(center_x + shift, center_y)
         pyautogui.click()
         print(f"Clicked at ({center_x}, {center_y}) with confidence {max_val}")
         return True
@@ -163,4 +170,22 @@ def run():
     if success:
         autofill_entry('we_privat', dict)
     time.sleep(sleep_time_next)
+
+    # Move mouse a bit to the left from where it was
+
+    if bauluecke_status == 1:
+        pyautogui.move(-100, 0)
+        time.sleep(sleep_time_next)
+        pyautogui.click()
+        time.sleep(sleep_time_next)
+        # Scroll mouse down
+        pyautogui.scroll(-5000)
+        time.sleep(sleep_time_next)
+
+        next = f'{directory}\\entry_bauluecke.JPG'  # Replace with your snippet image path
+        # Call the function
+        match_and_click(next, adjust = 1)
+        # autofill_entry('bauluecke', dict)
+        pyautogui.move(100, 0)
+        time.sleep(sleep_time_next)
 

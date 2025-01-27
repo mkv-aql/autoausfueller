@@ -5,7 +5,7 @@ import numpy as np
 import pyautogui
 import time
 
-sleep_time_next = 0.02
+sleep_time_next = 0.01
 
 directory = 'C:\\Users\\AgamSafaruddinDeutsc\\Documents\\Projekt\\autoausfueller'
 
@@ -92,6 +92,10 @@ def autofill_entry(key, data, delay=sleep_time_next):
         print(f"Filled {key} with {value}")
     else:
         print(f"Key {key} not found in the data dictionary.")
+
+def move_left():
+    pyautogui.move(-1000,0, duration = 0.5)
+
 
 # Example usage
 if __name__ == "__main__":
