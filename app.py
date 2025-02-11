@@ -1,13 +1,10 @@
 __author__ = 'mkv-aql'
 
-import cv2
 import matplotlib as mp
 import tkinter as tk
 import os
 import pywinauto
 import pygetwindow as gw
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 import class_autoausfueller as aa
 import threading
 
@@ -26,6 +23,8 @@ def window(root):
         ("Ortsteil 1", "Eselswiese"),
         ("Ortsteil 2", "Eselswiese"),
         ("Wohneinheiten (Privat)", "1"),
+        ("Wohneinheiten (Geschäftlich)", "0"),
+        ("Anmerkungen", "")
         # ("Baulücke", "0")
     ]
 
@@ -129,10 +128,10 @@ def insert(fetch, tick_var):
 
     if tick_var == 1:
         aa.bauluecke_status = 1
-        print("Checkbox is ticked!")
+        print("Baulücke checkbox is ticked!")
     else:
         aa.bauluecke_status = 0
-        print("Checkbox is not ticked.")
+        print("Baulücke checkbox is not ticked.")
 
     aa.dict = {
         "strasse": fetch[0],
@@ -168,7 +167,7 @@ def insert(fetch, tick_var):
 # Tkinter window
 root = tk.Tk()
 root.title("Automatisches Ausfüllen")
-root.geometry("400x500") # Window size
+root.geometry("400x550") # Window size
 root.geometry("+1300+250") # Window position
 # Keep window above everything
 root.attributes("-topmost", True)

@@ -77,7 +77,7 @@ def match_and_click(template_path, confidence=0.8, adjust = 0):
         return True
     else:
         print(f"No match found with confidence >= {confidence}")
-        return True
+        return False
 
 def autofill_entry(key, data, delay=sleep_time_next):
     """
@@ -106,20 +106,22 @@ def autofill_entry(key, data, delay=sleep_time_next):
 def run():
     # Wait for 2 seconds before starting
     time.sleep(2)
-
     # Path to the snippet image
     add_image = f'{directory}\\hinzufuegen.JPG'  # Replace with your snippet image path
-
     # Call the function
-    match_and_click(add_image)
-
+    success = match_and_click(add_image)
+    if not success:
+        print("Button not found.")
+        return
     time.sleep(sleep_time_next)
 
     next = f'{directory}\\addresse_neu.JPG'  # Replace with your snippet image path
     # Call the function
-    match_and_click(next)
-    # fill in entry
-
+    success = match_and_click(next)
+    if success:
+        match_and_click(next)
+    else:
+        return
     time.sleep(sleep_time_next)
 
     next = f'{directory}\\entry_strasse.JPG'  # Replace with your snippet image path
