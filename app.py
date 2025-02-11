@@ -8,9 +8,7 @@ import pygetwindow as gw
 import class_autoausfueller as aa
 import threading
 
-
 fetch = []
-
 
 # Inside window function
 def window(root):

@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import pyautogui
 import time
+import keyboard
 
 sleep_time_next = 0.02
 
@@ -16,6 +17,14 @@ special_characters = ['ä','ö','ü','ß', 'Ä', 'Ö', 'Ü']
 bauluecke_status = 0
 
 dict = {}
+
+def umlaut_detect_input(string):
+
+    for char in string:
+        if char in special_characters:
+            print("Umlaut detected")
+            return True
+    return False
 
 def update_dict(key, value):
     """
@@ -98,7 +107,11 @@ def autofill_entry(key, data, delay=sleep_time_next):
         #     pyautogui.write(char)
         #     time.sleep(0.1)
 
-        pyautogui.write(value) # write the value and covers more letters
+        result = umlaut_detect_input(value)
+        if result:
+            keyboard.write(value)
+        else:
+            pyautogui.write(value) # write the value and covers more letters
         print(f"Filled {key} with {value}")
     else:
         print(f"Key {key} not found in the data dictionary.")
