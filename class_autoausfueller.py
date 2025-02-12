@@ -149,12 +149,21 @@ def run():
     success = match_and_click(next)
     if success:
         autofill_entry('hausnummer', dict)
+    else:
+        # press tab
+        pyautogui.press('tab')
+        autofill_entry('hausnummer', dict)
     time.sleep(sleep_time_next)
 
     next = f'{directory}\\entry_plz.JPG'  # Replace with your snippet image path
     # Call the function
     success = match_and_click(next)
     if success:
+        autofill_entry('plz', dict)
+    else:
+        # press tab
+        pyautogui.press('tab')
+        pyautogui.press('tab')
         autofill_entry('plz', dict)
     time.sleep(sleep_time_next)
 
@@ -163,12 +172,21 @@ def run():
     success = match_and_click(next)
     if success:
         autofill_entry('ort', dict)
+    else:
+        # press tab
+        pyautogui.press('tab')
+        autofill_entry('ort', dict)
     time.sleep(sleep_time_next)
 
     next = f'{directory}\\entry_ortsteil1.JPG'  # Replace with your snippet image path
     # Call the function
     success = match_and_click(next)
     if success:
+        autofill_entry('ortsteil1', dict)
+    else:
+        # press tab
+        pyautogui.press('tab')
+        pyautogui.press('tab')
         autofill_entry('ortsteil1', dict)
     time.sleep(sleep_time_next)
 
@@ -177,6 +195,10 @@ def run():
     success = match_and_click(next)
     if success:
         autofill_entry('ortsteil2', dict)
+    else:
+        # press tab
+        pyautogui.press('tab')
+        autofill_entry('ortsteil2', dict)
     time.sleep(sleep_time_next)
 
     next = f'{directory}\\entry_we_privat.JPG'  # Replace with your snippet image path
@@ -184,17 +206,30 @@ def run():
     success = match_and_click(next)
     if success:
         autofill_entry('we_privat', dict)
+    else:
+        # press tab
+        pyautogui.press('tab')
+        autofill_entry('we_privat', dict)
     time.sleep(sleep_time_next)
 
     next = f'{directory}\\entry_we_geschaeftlich.JPG'
     success = match_and_click(next)
     if success:
         autofill_entry('we_geschaeftlich', dict)
+    else:
+        # press tab
+        pyautogui.press('tab')
+        autofill_entry('we_geschaeftlich', dict)
     time.sleep(sleep_time_next)
 
     next = f'{directory}\\entry_anmerkungen.JPG'
     success = match_and_click(next)
     if success:
+        autofill_entry('anmerkungen', dict)
+    else:
+        # press tab
+        pyautogui.press('tab')
+        pyautogui.press('tab')
         autofill_entry('anmerkungen', dict)
     time.sleep(sleep_time_next)
 
