@@ -186,6 +186,18 @@ def run():
         autofill_entry('we_privat', dict)
     time.sleep(sleep_time_next)
 
+    next = f'{directory}\\entry_we_geschaeftlich.JPG'
+    success = match_and_click(next)
+    if success:
+        autofill_entry('we_geschaeftlich', dict)
+    time.sleep(sleep_time_next)
+
+    next = f'{directory}\\entry_anmerkungen.JPG'
+    success = match_and_click(next)
+    if success:
+        autofill_entry('anmerkungen', dict)
+    time.sleep(sleep_time_next)
+
     # Move mouse a bit to the left from where it was
 
     if bauluecke_status == 1:

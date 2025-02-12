@@ -139,7 +139,8 @@ def insert(fetch, tick_var):
         "ortsteil1": fetch[4],
         "ortsteil2": fetch[5],
         "we_privat": fetch[6],
-        # "bauluecke": fetch[7],
+        "we_geschaeftlich": fetch[7],
+        "anmerkungen": fetch[8],
     }
 
     aa.run()
